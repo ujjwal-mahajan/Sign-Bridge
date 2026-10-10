@@ -247,7 +247,11 @@ class SignBridgeApp:
             self.seq_buffer.add_frame(norm_keypoints)
 
         # Stage 2: Temporal Inference (Agent 2)
-        if self.seq_buffer.is_ready():
+        if raw_frame is not None and info.get("hands_count", 0) == 0:
+            self.current_sign = None
+            self.current_confidence = 0.0
+            self.pred_filter.reset()
+        elif self.seq_buffer.is_ready():
             try:
                 seq = self.seq_buffer.get_sequence() # Shape: (30, 126)
                 prediction = self.model.predict(seq) # Contract C
