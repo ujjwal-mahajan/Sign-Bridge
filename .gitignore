@@ -45,5 +45,6 @@ data/raw/*
 data/processed/*
 !data/processed/.gitkeep
 models/*.pth
+!models/sign_model.pth
 models/*.h5
 !models/.gitkeep
